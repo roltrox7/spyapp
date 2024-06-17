@@ -3,25 +3,58 @@
 <head>
 <meta charset="UTF-8">
 <title>Super Spy App</title>
+<!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+    .container {
+        margin-top: 50px;
+    }
+    h1 {
+        margin-bottom: 30px;
+    }
+    h2 {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .btn-custom {
+        background-color: #007bff;
+        color: white;
+    }
+    .btn-custom:hover {
+        background-color: #0056b3;
+    }
+</style>
 </head>
 <body>
-	<h1>Our Super Cool Spy App</h1>
-	<h2>Create a Mission</h2>
-	
-	<form action="/addMission" method="get">	    
-		<Input type="submit" value="Create a Mission">
-	</form>
+    <div class="container">
+        <h1>Our Super Cool Spy App</h1>
+        
+        <h2>Create a Mission</h2>
+        <form action="/addMission" method="get">
+            <button type="submit" class="btn btn-custom">Create a Mission</button>
+        </form>
 
-	<h2>View Missions for</h2>
-	<form action="/viewMissions" method="get">
-		<p>
-			<select id="agent" name="agent">
-				<option value="Johnny English">Johnny English</option>
-				<option value="Natasha Romanova">Natasha Romanova</option>
-				<option value="Austin Powers">Austin Powers</option>
-			</select>
-			<input type="submit" value="Go">
-		</p>
-	</form>
+        <h2>View Missions for</h2>
+        <form action="/viewMissions" method="get">
+            <div class="form-group">
+                <select id="agent" name="agent" class="form-control">
+                    <option value="Johnny English">Johnny English</option>
+                    <option value="Natasha Romanova">Natasha Romanova</option>
+                    <option value="Austin Powers">Austin Powers</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-custom">Go</button>
+        </form>
+    </div>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
