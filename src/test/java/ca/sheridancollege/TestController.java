@@ -49,22 +49,26 @@ class TestController {
 
 	@Test
 	public void testUpdateMission() throws Exception {
-		
-		List<Mission> missions = da.getMissions("Johnny English");
-				
-		Mission mission = missions.get(0);
-		Long id = mission.getId();		System.out.println(id);
-		mission.setTitle("Rescue the world");
-		
-		mockMvc.perform(post("/updateMission")
-			.flashAttr("mission", mission))
-			.andExpect(status().isOk())
-			.andExpect(view().name("view_mission"));
-		
-		mission = da.getMission(id);
-		// pass if the title equals to what the user tested
-		assertEquals(mission.getTitle(), "Rescue the world");
+	    List<Mission> missions = da.getMissions("Johnny English");
+	
+	    if (missions.isEmpty()) {
+	        fail("No missions found for agent 'Johnny English'");
+	    }
+	
+	    Mission mission = missions.get(0);
+	    Long id = mission.getId();
+	    mission.setTitle("Rescue the world");
+	
+	    mockMvc.perform(post("/updateMission")
+	        .flashAttr("mission", mission))
+	        .andExpect(status().isOk())
+	        .andExpect(view().name("view_mission"));
+	
+	    mission = da.getMission(id);
+	    // pass if the title equals to what the user tested
+	    assertEquals(mission.getTitle(), "Rescue the world");
 	}
+
 
 	@Test
 	public void testAddMission() throws Exception{
@@ -113,23 +117,30 @@ class TestController {
 
 	@Test
 	public void testCreateMission() throws Exception {
-		// retrieve the mission list and the fields
-		List<Mission> missions = da.getMissions("Johnny English");
-		Mission mission = missions.get(0);
-		String agent = mission.getAgent();	
-		
-		int origSize = da.getMissions(agent).size();
-		
-		// execute the test
-		mockMvc.perform(post("/createMission")
-			.flashAttr("mission", mission))
-			.andExpect(status().isOk())
-			.andExpect(view().name("view_mission"))
-			.andDo(print());
-		int newSize = da.getMissions(agent).size();
-		// pass if the new size is 1 bigger than the original size
-		assertEquals(newSize, origSize + 1);
+	    // retrieve the mission list and the fields
+	    List<Mission> missions = da.getMissions("Johnny English");
+	
+	    if (missions.isEmpty()) {
+	        fail("No missions found for agent 'Johnny English'");
+	    }
+	
+	    Mission mission = missions.get(0);
+	    String agent = mission.getAgent();
+	
+	    int origSize = da.getMissions(agent).size();
+	
+	    // execute the test
+	    mockMvc.perform(post("/createMission")
+	        .flashAttr("mission", mission))
+	        .andExpect(status().isOk())
+	        .andExpect(view().name("view_mission"))
+	        .andDo(print());
+	    int newSize = da.getMissions(agent).size();
+	    // pass if the new size is 1 bigger than the original size
+	    assertEquals(newSize, origSize + 1);
 	}
+
+
 	
 	@Test
 	public void testEditMission() throws Exception {
