@@ -9,16 +9,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import ca.sheridancollege.beans.Mission;
 import ca.sheridancollege.database.DatabaseAccess;
@@ -27,137 +24,132 @@ import ca.sheridancollege.database.DatabaseAccess;
 @AutoConfigureMockMvc
 class TestController {
 
-	private DatabaseAccess da;
-	private MockMvc mockMvc;
-	
-	@Autowired
-	public void setDa(DatabaseAccess da) {
-		this.da = da;
-	}
+    private DatabaseAccess da;
+    private MockMvc mockMvc;
 
-	@Autowired
-	public void setMockMvc(MockMvc mockMvc) {
-		this.mockMvc = mockMvc;
-	}
-		
-	@Test
-	public void testRoot() throws Exception {
-		mockMvc.perform(get("/"))
-			.andExpect(status().isOk())
-			.andExpect(view().name("index"));
-	}
+    @Autowired
+    public void setDa(DatabaseAccess da) {
+        this.da = da;
+    }
 
-	@Test
-	public void testUpdateMission() throws Exception {
-	    List<Mission> missions = da.getMissions("Johnny English");
-	
-	    if (missions.isEmpty()) {
-	        fail("No missions found for agent 'Johnny English'");
-	    }
-	
-	    Mission mission = missions.get(0);
-	    Long id = mission.getId();
-	    mission.setTitle("Rescue the world");
-	
-	    mockMvc.perform(post("/updateMission")
-	        .flashAttr("mission", mission))
-	        .andExpect(status().isOk())
-	        .andExpect(view().name("view_mission"));
-	
-	    mission = da.getMission(id);
-	    // pass if the title equals to what the user tested
-	    assertEquals(mission.getTitle(), "Rescue the world");
-	}
+    @Autowired
+    public void setMockMvc(MockMvc mockMvc) {
+        this.mockMvc = mockMvc;
+    }
 
+    @BeforeEach
+    public void setup() {
+        Mission mission = new Mission();
+        mission.setAgent("Johnny English");
+        mission.setTitle("Rescue the Queen");
+        mission.setGadget1("Gadget1");
+        mission.setGadget2("Gadget2");
+        da.addMission(mission);
+    }
 
-	@Test
-	public void testAddMission() throws Exception{
-		mockMvc.perform(get("/addMission"))
-				.andExpect(status().isOk())
-				.andExpect(view().name("create_mission"))
-				.andDo(print());
-	}
+    @Test
+    public void testRoot() throws Exception {
+        mockMvc.perform(get("/"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("index"));
+    }
 
-	@Test
-	public void testDeleteMission() throws Exception {
-		// retrieve the mission list and the fields
-		List<Mission> missions = da.getMissions("Johnny English");
-		Mission mission = missions.get(0);		
-		Long id = mission.getId();	
-		String agent = mission.getAgent();	
-		
-		int origSize = da.getMissions(agent).size();
-		
-		// execute the test
-		mockMvc.perform(get("/deleteMission/{id}", id))
-			.andExpect(status().isOk())
-			.andExpect(view().name("view_mission"))
-			.andDo(print());
-		
-		int returnValue = da.deleteMission(id);
-				
-		int newSize = da.getMissions(agent).size();
-		// pass if the new size is 1 smaller than the original size
-		assertEquals(newSize, origSize - 1);
-	}
+    @Test
+    public void testUpdateMission() throws Exception {
+        List<Mission> missions = da.getMissions("Johnny English");
 
-	@Test
-	public void testViewMissions() throws Exception {
-		// use LinkedMultipleValueMap to mimic request parameters
-		LinkedMultiValueMap<String, String> requestParams 
-				= new LinkedMultiValueMap<>();
-		// add the values
-		requestParams.add("agent", "Johnny English");
-		// test the request
-		mockMvc.perform(get("/viewMissions").params(requestParams))
-			.andExpect(status().isOk())
-			.andExpect(view().name("view_mission"))
-			.andDo(print());
-	}
+        if (missions.isEmpty()) {
+            fail("No missions found for agent 'Johnny English'");
+        }
 
-	@Test
-	public void testCreateMission() throws Exception {
-	    // retrieve the mission list and the fields
-	    List<Mission> missions = da.getMissions("Johnny English");
-	
-	    if (missions.isEmpty()) {
-	        fail("No missions found for agent 'Johnny English'");
-	    }
-	
-	    Mission mission = missions.get(0);
-	    String agent = mission.getAgent();
-	
-	    int origSize = da.getMissions(agent).size();
-	
-	    // execute the test
-	    mockMvc.perform(post("/createMission")
-	        .flashAttr("mission", mission))
-	        .andExpect(status().isOk())
-	        .andExpect(view().name("view_mission"))
-	        .andDo(print());
-	    int newSize = da.getMissions(agent).size();
-	    // pass if the new size is 1 bigger than the original size
-	    assertEquals(newSize, origSize + 1);
-	}
+        Mission mission = missions.get(0);
+        Long id = mission.getId();
+        mission.setTitle("Rescue the world");
 
+        mockMvc.perform(post("/updateMission")
+                .flashAttr("mission", mission))
+                .andExpect(status().isOk())
+                .andExpect(view().name("view_mission"));
 
-	
-	@Test
-	public void testEditMission() throws Exception {
-		// retrieve the mission list and the fields
-		List<Mission> missions = da.getMissions("Johnny English");
-		Mission mission = missions.get(0);		
-		Long id = mission.getId();	
-		
-		// perform the test
-		mockMvc.perform(get("/editMission/{id}", id))
-				.andExpect(status().isOk())
-				.andExpect(view().name("edit_mission"))
-				.andDo(print());	
-	}
-	
-	@Test
-	public void testUpdateSession() throws Exception {
-		// the method that assists other methods and doesn't have mapping
-	}
+        mission = da.getMission(id);
+        assertEquals(mission.getTitle(), "Rescue the world");
+    }
+
+    @Test
+    public void testAddMission() throws Exception {
+        mockMvc.perform(get("/addMission"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("create_mission"))
+                .andDo(print());
+    }
+
+    @Test
+    public void testDeleteMission() throws Exception {
+        List<Mission> missions = da.getMissions("Johnny English");
+        Mission mission = missions.get(0);
+        Long id = mission.getId();
+        String agent = mission.getAgent();
+
+        int origSize = da.getMissions(agent).size();
+
+        mockMvc.perform(get("/deleteMission/{id}", id))
+                .andExpect(status().isOk())
+                .andExpect(view().name("view_mission"))
+                .andDo(print());
+
+        int returnValue = da.deleteMission(id);
+
+        int newSize = da.getMissions(agent).size();
+        assertEquals(newSize, origSize - 1);
+    }
+
+    @Test
+    public void testViewMissions() throws Exception {
+        LinkedMultiValueMap<String, String> requestParams = new LinkedMultiValueMap<>();
+        requestParams.add("agent", "Johnny English");
+
+        mockMvc.perform(get("/viewMissions").params(requestParams))
+                .andExpect(status().isOk())
+                .andExpect(view().name("view_mission"))
+                .andDo(print());
+    }
+
+    @Test
+    public void testCreateMission() throws Exception {
+        List<Mission> missions = da.getMissions("Johnny English");
+
+        if (missions.isEmpty()) {
+            fail("No missions found for agent 'Johnny English'");
+        }
+
+        Mission mission = missions.get(0);
+        String agent = mission.getAgent();
+
+        int origSize = da.getMissions(agent).size();
+
+        mockMvc.perform(post("/createMission")
+                .flashAttr("mission", mission))
+                .andExpect(status().isOk())
+                .andExpect(view().name("view_mission"))
+                .andDo(print());
+        int newSize = da.getMissions(agent).size();
+        assertEquals(newSize, origSize + 1);
+    }
+
+    @Test
+    public void testEditMission() throws Exception {
+        List<Mission> missions = da.getMissions("Johnny English");
+        Mission mission = missions.get(0);
+        Long id = mission.getId();
+
+        mockMvc.perform(get("/editMission/{id}", id))
+                .andExpect(status().isOk())
+                .andExpect(view().name("edit_mission"))
+                .andDo(print());
+    }
+
+    @Test
+    public void testUpdateSession() throws Exception {
+        // the method that assists other methods and doesn't have mapping
+    }
 }
