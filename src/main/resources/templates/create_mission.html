@@ -3,33 +3,65 @@
 <head>
 <meta charset="UTF-8">
 <title>Create a Mission</title>
+<!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+    .container {
+        margin-top: 50px;
+    }
+    h1 {
+        margin-bottom: 30px;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .btn-custom {
+        background-color: #007bff;
+        color: white;
+    }
+    .btn-custom:hover {
+        background-color: #0056b3;
+    }
+    .back-link {
+        margin-top: 20px;
+    }
+</style>
 </head>
 <body>
-    <h1>Create a Mission</h1>
-	<form action="/createMission" method="post" th:object="${mission}">		
-		
-		<p>Mission title: <input type="text" th:field="*{title}" required></p>        
-        <p><select th:field=*{agent}>
-                <option value="Johnny English">Johnny English</option>
-                <option value="Natasha Romanova">Natasha Romanova</option>
-                <option value="Austin Powers">Austin Powers</option>
-        </select></p>
-        
-		<h2>Enter the gadgets</h2>
-		Gadget 1: <input type="text" th:field="*{gadget1}"><br><br>
-        Gadget 2: <input type="text" th:field="*{gadget2}"><br><br>        
-        <input type="submit" value="Create Mission!">
-	</form>
-	<p><a href="/">Back to home</a></p>
+    <div class="container">
+        <h1>Create a Mission</h1>
+        <form action="/createMission" method="post" th:object="${mission}">
+            <div class="form-group">
+                <label for="title">Mission title:</label>
+                <input type="text" class="form-control" id="title" th:field="*{title}" required>
+            </div>
+            <div class="form-group">
+                <label for="agent">Select Agent:</label>
+                <select class="form-control" id="agent" th:field="*{agent}">
+                    <option value="Johnny English">Johnny English</option>
+                    <option value="Natasha Romanova">Natasha Romanova</option>
+                    <option value="Austin Powers">Austin Powers</option>
+                </select>
+            </div>
+            <h2>Enter the gadgets</h2>
+            <div class="form-group">
+                <label for="gadget1">Gadget 1:</label>
+                <input type="text" class="form-control" id="gadget1" th:field="*{gadget1}">
+            </div>
+            <div class="form-group">
+                <label for="gadget2">Gadget 2:</label>
+                <input type="text" class="form-control" id="gadget2" th:field="*{gadget2}">
+            </div>
+            <button type="submit" class="btn btn-custom">Create Mission!</button>
+        </form>
+        <p class="back-link"><a href="/" class="btn btn-link">Back to home</a></p>
+    </div>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
