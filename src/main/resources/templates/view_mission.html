@@ -3,23 +3,76 @@
 <head>
 <meta charset="UTF-8">
 <title>View Missions</title>
+<!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    body {
+        background-color: #f8f9fa;
+        font-family: Arial, sans-serif;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    .container {
+        max-width: 800px;
+        margin: auto;
+    }
+    h1 {
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #007bff;
+        color: white;
+    }
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    .operation-links a {
+        margin-right: 10px;
+    }
+</style>
 </head>
 <body>
-    <h1 th:text="|Here are the missions for ${session.agent}|">missions</h1>
-    <table>
-        <tr>
-            <th>Title</th><th>Gadget1</th><th>Gadget2</th><th>Operation</th>
-        </tr>
-        <tr th:each="mission : ${session.missionList}">
-            <td th:text="${mission.title}">title</td>
-            <td th:text="${mission.gadget1}">gadget1</td>
-            <td th:text="${mission.gadget2}">gadget2</td>
-            <td>
-                <a href="" th:href="|/editMission/${mission.id}|">edit</a>
-                <a href="" th:href="|/deleteMission/${mission.id}|">delete</a>
-            </td>
-        </tr>
-    </table>
-    <p><a href="/">Back to home</a></p>
+    <div class="container">
+        <h1 th:text="|Here are the missions for ${session.agent}|">Missions</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Gadget 1</th>
+                    <th>Gadget 2</th>
+                    <th>Operation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="mission : ${session.missionList}">
+                    <td th:text="${mission.title}">Title</td>
+                    <td th:text="${mission.gadget1}">Gadget 1</td>
+                    <td th:text="${mission.gadget2}">Gadget 2</td>
+                    <td class="operation-links">
+                        <a href="#" th:href="@{/editMission/{id}(id=${mission.id})}" class="btn btn-sm btn-primary">Edit</a>
+                        <a href="#" th:href="@{/deleteMission/{id}(id=${mission.id})}" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p><a href="/" class="btn btn-secondary">Back to home</a></p>
+    </div>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
