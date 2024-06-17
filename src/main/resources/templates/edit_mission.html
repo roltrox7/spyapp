@@ -3,20 +3,59 @@
 <head>
 <meta charset="UTF-8">
 <title>Edit Mission</title>
+<!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+    .container {
+        margin-top: 50px;
+    }
+    h1 {
+        margin-bottom: 30px;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .btn-custom {
+        background-color: #007bff;
+        color: white;
+    }
+    .btn-custom:hover {
+        background-color: #0056b3;
+    }
+    .back-link {
+        margin-top: 20px;
+    }
+</style>
 </head>
 <body>
-    <h1 th:text="|Edit a Mission for ${mission.agent}|">Edit a Mission for</h1>
-    <form action="#" th:action="@{/updateMission}" method="post" th:object="${mission}">
-
-	    <p>Mission title: <input type="text" th:field=*{title} required></p>
-	    
-	    <h2>Edit the gadgets</h2>
-	    Gadget 1: <input type="text" th:field="*{gadget1}"><br>
-	    Gadget 2: <input type="text" th:field="*{gadget2}"><br><br>
-	    <input type="hidden" th:field="*{id}">
-	    <input type="hidden" th:field="*{agent}">
-	    <input type="submit" value="Update Mission!">
-    </form>
-    <a href="/">Back to home</a>
+    <div class="container">
+        <h1 th:text="|Edit a Mission for ${mission.agent}|">Edit a Mission for</h1>
+        <form action="#" th:action="@{/updateMission}" method="post" th:object="${mission}">
+            <div class="form-group">
+                <label for="title">Mission title:</label>
+                <input type="text" class="form-control" id="title" th:field="*{title}" required>
+            </div>
+            <h2>Edit the gadgets</h2>
+            <div class="form-group">
+                <label for="gadget1">Gadget 1:</label>
+                <input type="text" class="form-control" id="gadget1" th:field="*{gadget1}">
+            </div>
+            <div class="form-group">
+                <label for="gadget2">Gadget 2:</label>
+                <input type="text" class="form-control" id="gadget2" th:field="*{gadget2}">
+            </div>
+            <input type="hidden" th:field="*{id}">
+            <input type="hidden" th:field="*{agent}">
+            <button type="submit" class="btn btn-custom">Update Mission!</button>
+        </form>
+        <p class="back-link"><a href="/" class="btn btn-link">Back to home</a></p>
+    </div>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
