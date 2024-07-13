@@ -1,53 +1,8 @@
 INSERT INTO missions
     (agent, title, gadget1, gadget2)
 VALUES
-    -- Johnny English Missions
-    ('Johnny English', 'Rescue the Queen', 'Exploding Cigar', 'Voice Controlled Rolls Royce'),
-    ('Johnny English', 'Retrieve Stolen Microchip', 'Omega Seamaster Watch', 'Aston Martin DB5'),
-    ('Johnny English', 'Uncover Conspiracy', 'Encrypted Phone', 'Combat Knife'),
-    ('Johnny English', 'Recover the Holy Grail', 'Whip', 'Revolver'),
-    ('Johnny English', 'Stop Valentine', 'Umbrella Shield', 'Lighter Grenade'),
-    ('Johnny English', 'Perform Inception', 'Totem', 'Dream Machine'),
-    ('Johnny English', 'Neutralize Terrorist Threat', 'Silenced Pistol', 'Night Vision Goggles'),
-    ('Johnny English', 'Protect the President', 'Kevlar Vest', 'Earpiece Communicator'),
-    ('Johnny English', 'Foil Bank Heist', 'Smoke Bomb', 'Lock Pick Kit'),
-    ('Johnny English', 'Track Down Hacker', 'Laptop', 'Signal Jammer'),
-    ('Johnny English', 'Rescue Hostages', 'Flash Bang', 'Tactical Knife'),
-    ('Johnny English', 'Disarm Nuclear Bomb', 'Bomb Disposal Kit', 'Radiation Suit'),
-    ('Johnny English', 'Expose Spy', 'Spy Glasses', 'Voice Recorder'),
-    ('Johnny English', 'Intercept Arms Deal', 'Undercover Disguise', 'Microphone'),
-    ('Johnny English', 'Retrieve Stolen Artifacts', 'Magnetic Gloves', 'Laser Cutter'),
-
-    -- Natasha Romanova Missions
-    ('Natasha Romanova', 'Kill Iron Man', 'Armored Suit', 'Indestructible Pole'),
-    ('Natasha Romanova', 'Find the Lost Tomb', 'Dual Pistols', 'Climbing Gear'),
-    ('Natasha Romanova', 'Steal the Diamond', 'Claws', 'Motorcycle'),
-    ('Natasha Romanova', 'Thwart KAOS', 'Shoe Phone', 'Cone of Silence'),
-    ('Natasha Romanova', 'Take Down SD-6', 'Lipstick Gun', 'EMP Device'),
-    ('Natasha Romanova', 'Retrieve Classified Documents', 'USB Drive', 'Invisible Ink Pen'),
-    ('Natasha Romanova', 'Assassinate Rogue Agent', 'Sniper Rifle', 'Poison Dart'),
-    ('Natasha Romanova', 'Secure Research Lab', 'Biohazard Suit', 'Hacking Tool'),
-    ('Natasha Romanova', 'Capture Enemy Leader', 'Handcuffs', 'Shock Baton'),
-    ('Natasha Romanova', 'Prevent Cyber Attack', 'Firewall Device', 'Anti-virus Software'),
-    ('Natasha Romanova', 'Destroy Enemy Base', 'C4 Explosive', 'Detonator'),
-    ('Natasha Romanova', 'Intercept Secret Message', 'Decoder', 'Secure Phone'),
-    ('Natasha Romanova', 'Protect VIP', 'Body Armor', 'Escort Vehicle'),
-    ('Natasha Romanova', 'Retrieve Hostage', 'Stealth Suit', 'Dart Gun'),
-    ('Natasha Romanova', 'Prevent Assassination', 'Bulletproof Umbrella', 'Gas Mask'),
-
-    -- Austin Powers Missions
-    ('Austin Powers', 'Infiltrate the Kremlin', 'Face Maker', 'Grapple Gun'),
-    ('Austin Powers', 'Defeat Dr. Evil', 'Miniature Camera', 'Shaguar'),
-    ('Austin Powers', 'Expose Corruption', 'Bulletproof Vest', 'Sniper Rifle'),
-    ('Austin Powers', 'Assemble the Avengers', 'Eye Patch', 'Jet Pack'),
-    ('Austin Powers', 'Neutralize Alien Threat', 'Ray Gun', 'Force Field'),
-    ('Austin Powers', 'Investigate Haunted Mansion', 'Ghost Detector', 'Holy Water'),
-    ('Austin Powers', 'Prevent Global Warming', 'Climate Control Device', 'Portable Solar Panel'),
-    ('Austin Powers', 'Rescue Damsel in Distress', 'Love Potion', 'Jet Boots'),
-    ('Austin Powers', 'Stop Time-Traveling Villain', 'Time Machine', 'Chrono Stabilizer'),
-    ('Austin Powers', 'Retrieve Stolen Painting', 'Camouflage Suit', 'Silent Drill'),
-    ('Austin Powers', 'Save the World from Meteor', 'Space Suit', 'Rocket Launcher'),
-    ('Austin Powers', 'Catch Master Thief', 'Trap Net', 'Motion Sensors'),
-    ('Austin Powers', 'Prevent World War III', 'Peace Negotiator', 'Drone'),
-    ('Austin Powers', 'Protect Secret Formula', 'Fingerprint Scanner', 'Retinal Scanner'),
-    ('Austin Powers', 'Infiltrate Secret Society', 'Voice Changer', 'Disguise Kit');
+    ('Johnny English', 'Rescue the Queen',
+    'Exploding Cigar', 'Voice Controlled Rolls Royce'),
+    
+    ('Natasha Romanova', 'Kill Iron Man',
+    'Armored Suit', 'Indestructible Pole');
